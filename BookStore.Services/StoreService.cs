@@ -99,6 +99,8 @@ namespace BookStore.Services
 
         public void Import(string catalogAsJson)
         {
+            // Throw exception if Json string cannot be deserialized
+
             JObject jsonObject = JObject.Parse(catalogAsJson);
             IList<JToken> categoryResults = jsonObject["Category"].Children().ToList();
             IList<JToken> catalogResults = jsonObject["Catalog"].Children().ToList();
