@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using BookStore.Core;
+﻿using BookStore.Core.Extensions;
 using BookStore.Services.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.API.Controllers
@@ -24,7 +18,12 @@ namespace BookStore.API.Controllers
         [HttpPost("import")]
         public ActionResult Import([FromBody]string catalogAsJson)
         {
-            _storeService.Import(catalogAsJson);
+            string errorMessage;
+            _storeService.Import(catalogAsJson, out errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return BadRequest(errorMessage);
+            }
 
             return NoContent();
         }
@@ -55,7 +54,7 @@ namespace BookStore.API.Controllers
             }
             catch (NotEnoughInventoryException nex)
             {
-                return BadRequest(new { ExceptionMessage = nex.Message, Books = nex.Missing });
+                return BadRequest(new { Exception = nex.Message, Books = nex.Missing });
             }         
         }
     }

@@ -2,7 +2,7 @@
 {
     public interface IStore
     {
-        void Import(string catalogAsJson);
+        void Import(string catalogAsJson, out string errorMessage);
 
         int Quantity(string name);
 

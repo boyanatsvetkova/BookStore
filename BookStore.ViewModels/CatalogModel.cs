@@ -6,17 +6,16 @@ namespace BookStore.ViewModels
 {
     public class CatalogModel : INameQuantity
     {
-        [Required]
         [RegularExpression(@"^(.+)$")]
+        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
 
-        [Required]
+        [JsonProperty(Required = Required.Always)]
         public double? Price { get; set; }
 
-        [Required]
+        [JsonProperty(Required = Required.Always)]
         public int? Quantity { get; set; }
 
-        [Required]
         [JsonIgnore]
         public CategoryModel Category { get; set; }
     }
