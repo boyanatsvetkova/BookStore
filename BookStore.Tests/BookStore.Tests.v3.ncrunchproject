@@ -1,0 +1,8 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <AdditionalFilesToIncludeForProject>
+      <Value>bin\Debug\netcoreapp2.1\Newtonsoft.Json.dll</Value>
+      <Value>bin\Debug\netcoreapp2.1\Newtonsoft.Json.xml</Value>
+    </AdditionalFilesToIncludeForProject>
+  </Settings>
+</ProjectConfiguration>
