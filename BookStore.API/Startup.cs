@@ -1,5 +1,4 @@
-﻿using BookStore.Core.Extensions;
-using BookStore.Services;
+﻿using BookStore.Services;
 using BookStore.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -126,7 +126,7 @@ namespace BookStore.Tests
         }
 
         [Theory]
-        //[InlineData(INVALID_JSON_STRING)]
+        [InlineData(INVALID_JSON_STRING)]
         [InlineData(JSON_STRING_WITH_INVALID_PROPERTY)]
         public void Import_ShouldReturnErrorMessage_WithInvalidJsonString(string jsonString)
         {
