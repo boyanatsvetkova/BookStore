@@ -1,61 +1,42 @@
-﻿using BookStore.Core.Extensions;
-using BookStore.Services.Contracts;
+﻿using BookStore.Services;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/store")]
     [ApiController]
     public class StoreController : ControllerBase
     {
-        private readonly IStore _storeService;
+        private readonly StoreService _storeService;
         
-        public StoreController(IStore storeService)
+        public StoreController(StoreService storeService)
         {
             _storeService = storeService;
         }
 
         [HttpPost("import")]
-        public ActionResult Import([FromBody]string catalogAsJson)
+        public IActionResult Import([FromBody]string catalogAsJson)
         {
-            string errorMessage;
-            _storeService.Import(catalogAsJson, out errorMessage);
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                return BadRequest(errorMessage);
-            }
+            _storeService.Import(catalogAsJson);           
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpGet("quantity/{name}")]
         public ActionResult Quantity(string name)
         {
-            bool isAvailable = _storeService.IsBookAvailable(name);
+            _storeService.Quantity(name);
 
-            if (!isAvailable)
-            {
-                return NotFound(name);
-            }
-
-            int quantityAvailableOfBook = _storeService.Quantity(name);
-
-            return Ok(quantityAvailableOfBook);
+            return Ok();
         }
 
         [HttpGet("buy")]
-        public ActionResult Buy([FromBody]params string[] basketNames)
+        public ActionResult Buy([FromBody]params string[] basketByNames)
         {
-            try
-            {
-                double basketPrice = _storeService.Buy(basketNames);
+            _storeService.Buy(basketByNames);
 
-                return Ok(basketPrice);
-            }
-            catch (NotEnoughInventoryException nex)
-            {
-                return BadRequest(new { Exception = nex.Message, Books = nex.Missing });
-            }         
+            return Ok();
         }
     }
 }
