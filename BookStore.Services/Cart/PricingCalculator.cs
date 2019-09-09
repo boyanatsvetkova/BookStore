@@ -8,9 +8,9 @@ namespace BookStore.Services.Cart
     {
         private readonly IList<IPriceRule> _rules;
 
-        public PricingCalculator(IList<IPriceRule> rules)
+        public PricingCalculator()
         {
-            _rules = rules;
+            _rules =  new List<IPriceRule>();
         }
 
         public decimal CalculatePriceOfBooks(IShoppingCartCatalogDto catalog)

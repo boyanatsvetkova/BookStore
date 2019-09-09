@@ -1,4 +1,7 @@
-﻿using BookStore.Services;
+﻿using BookStore.API.ApiCustomResponse;
+using BookStore.API.Filters;
+using BookStore.Contracts;
+using BookStore.Services;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +19,16 @@ namespace BookStore.API.Controllers
         }
 
         [HttpPost("import")]
+        [ServiceFilter(typeof(JsonImporterActionFilter))]
         public IActionResult Import([FromBody]string catalogAsJson)
         {
-            _storeService.Import(catalogAsJson);           
+            IModelError modelError = _storeService.Import(catalogAsJson);
+            if (modelError != null)
+            {
+                // Check the difference between BadRequest and BadRequestObjectResult
+                ModelState.AddModelError(modelError.Field, modelError.Message);
+                return BadRequest(new ApiBadRequestResponse(ModelState));
+            }
 
             return Ok();
         }

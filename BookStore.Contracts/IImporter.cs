@@ -1,7 +1,9 @@
-﻿namespace BookStore.Contracts
+﻿using System.Collections.Generic;
+
+namespace BookStore.Contracts
 {
     public interface IImporter
     {
-        void Import(string catalog);
+        IModelError Import(string catalog);
     }
 }

@@ -18,9 +18,9 @@ namespace BookStore.Services
             _shoppingCart = shoppingCart;
         }
 
-        public void Import(string catalogAsJson)
+        public IModelError Import(string catalogAsJson)
         {
-            _importer.Import(catalogAsJson);
+            return _importer.Import(catalogAsJson);
         }
 
         public int Quantity(string name)

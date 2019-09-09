@@ -1,4 +1,5 @@
 ﻿using BookStore.Contracts.ShoppingCart;
+using BookStore.Infrastructure.Exceptions;
 using BookStore.Models;
 using System.Collections.Generic;
 
@@ -20,6 +21,8 @@ namespace BookStore.Services.Cart
             {
                
             }
+
+            throw new NotEnoughInventoryException();
 
             return 0;
         }

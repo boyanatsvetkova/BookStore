@@ -1,4 +1,5 @@
-﻿using BookStore.Contracts;
+﻿using BookStore.API.Filters;
+using BookStore.Contracts;
 using BookStore.Contracts.ShoppingCart;
 using BookStore.Services;
 using BookStore.Services.Cart;
@@ -27,6 +28,7 @@ namespace BookStore.API
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddScoped<JsonImporterActionFilter>();
             services.AddScoped<StoreService, StoreService>();
             services.AddScoped<IImporter, JsonImporter>();
             services.AddScoped<IShoppingCart, ShoppingCart>();
